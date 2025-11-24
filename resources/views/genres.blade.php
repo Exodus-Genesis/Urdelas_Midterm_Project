@@ -2,12 +2,12 @@
 @section('content')
 
 <!-- Page Header -->
-<div class="bg-white shadow-sm sticky top-0 z-40 -mx-6 px-4 sm:px-6 py-4 mb-6">
+<div class="bg-gray-900 shadow-sm sticky top-0 z-40 -mx-6 px-4 sm:px-6 py-4 mb-6">
   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
-    <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 flex items-center gap-2">
-      <span class="text-2xl sm:text-3xl">🎭</span> Genre Management
+    <h1 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-2">
+      <span class="text-2xl sm:text-3xl">🖥️</span> Game Genre Management
     </h1>
-    <div class="text-xs sm:text-sm text-gray-600">
+    <div class="text-xs sm:text-sm text-gray-300">
       {{ \Carbon\Carbon::now()->format('l, F j, Y') }}
     </div>
   </div>
@@ -17,51 +17,51 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
 
   <!-- Total Genres -->
-  <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4 sm:p-6">
+  <div class="bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4 sm:p-6">
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-gray-600 text-xs sm:text-sm font-medium">Total Genres</p>
-        <p class="text-2xl sm:text-3xl font-bold text-gray-800 mt-2">{{ $totalGenres }}</p>
+        <p class="text-gray-200 text-xs sm:text-sm font-medium">Total Genre</p>
+        <p class="text-2xl sm:text-3xl font-bold text-white mt-2">{{ $totalGenres }}</p>
       </div>
-      <div class="text-4xl sm:text-5xl opacity-20">📚</div>
+      <div class="text-4xl sm:text-5xl opacity-30">🕹️</div>
     </div>
-    <p class="text-xs text-gray-500 mt-4">Genres available in your system</p>
+    <p class="text-xs text-gray-300 mt-4">Game Genre available in your system</p>
   </div>
 
   <!-- Genre with Most Movies -->
-  <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4 sm:p-6">
+  <div class="bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4 sm:p-6">
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-gray-600 text-xs sm:text-sm font-medium">Top Genre</p>
-        <p class="text-xl sm:text-2xl font-bold text-gray-800 mt-2">
-          {{ $topGenre ? $topGenre->name : 'No genres yet' }}
+        <p class="text-gray-200 text-xs sm:text-sm font-medium">Top platform</p>
+        <p class="text-xl sm:text-2xl font-bold text-white mt-2">
+          {{ $topGenre ? $topGenre->name : 'No Genre yet' }}
         </p>
       </div>
-      <div class="text-4xl sm:text-5xl opacity-20">🏆</div>
+      <div class="text-4xl sm:text-5xl opacity-30">🏆</div>
     </div>
-    <p class="text-xs text-gray-500 mt-4">
-      {{ $topGenre ? $topGenre->movies_count . ' movies' : 'No data available' }}
+    <p class="text-xs text-gray-300 mt-4">
+      {{ $topGenre ? $topGenre->movies_count . ' games ' : 'No data available' }}
     </p>
   </div>
 
   <!-- Total Movies Inside All Genres -->
-  <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4 sm:p-6">
+  <div class="bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4 sm:p-6">
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-gray-600 text-xs sm:text-sm font-medium">Total Movies Across Genres</p>
-        <p class="text-2xl sm:text-3xl font-bold text-gray-800 mt-2">{{ $totalMoviesAcrossGenres }}</p>
+        <p class="text-gray-200 text-xs sm:text-sm font-medium">Total Games Across Platforms</p>
+        <p class="text-2xl sm:text-3xl font-bold text-white mt-2">{{ $totalMoviesAcrossGenres }}</p>
       </div>
-      <div class="text-4xl sm:text-5xl opacity-20">🎞️</div>
+      <div class="text-4xl sm:text-5xl opacity-30">🖥️</div>
     </div>
-    <p class="text-xs text-gray-500 mt-4">Total movies counted from all genres</p>
+    <p class="text-xs text-gray-300 mt-4">Total games counted from all platforms</p>
   </div>
 
 </div>
 
 <!-- Add New Genre Form -->
-<div class="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-8">
-  <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-    <span class="text-xl sm:text-2xl">➕</span> Add New Genre
+<div class="bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 mb-8">
+  <h2 class="text-lg sm:text-xl font-bold text-white mb-6 flex items-center gap-2">
+    <span class="text-xl sm:text-2xl">⛶</span> Add New Game Genre
   </h2>
   
   <form method="POST" action="{{ route('genres.store') }}" class="space-y-4">
@@ -69,12 +69,12 @@
     
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
-        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Genre Name <span class="text-red-500">*</span></label>
+        <label class="block text-xs sm:text-sm font-medium text-gray-200 mb-2">Genre Name <span class="text-red-500">*</span></label>
         <input 
           name="name" 
           value="{{ old('name') }}"
           placeholder="Enter genre name"
-          class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-sm"
+          class="w-full px-3 sm:px-4 py-2 border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none transition text-sm bg-gray-900 text-white"
           required
         />
         @error('name')
@@ -84,46 +84,46 @@
     </div>
 
     <div>
-      <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Description</label>
+      <label class="block text-xs sm:text-sm font-medium text-gray-200 mb-2">Description</label>
       <textarea 
         name="description" 
         placeholder="Enter genre description..."
         rows="3"
-        class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-sm"
+        class="w-full px-3 sm:px-4 py-2 border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none transition text-sm bg-gray-900 text-white"
       >{{ old('description') }}</textarea>
     </div>
 
     <div class="flex justify-end pt-4">
       <button 
         type="submit" 
-        class="px-4 sm:px-6 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 font-medium transition-all duration-200 flex items-center gap-2 text-sm sm:text-base"
+        class="px-4 sm:px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-950 font-medium transition-all duration-200 flex items-center gap-2 text-sm sm:text-base"
       >
-        <span>✨</span> Add Genre
+        <span>𖦏</span> Add Genre
       </button>
     </div>
   </form>
 </div>
 
 <!-- All Genres Table -->
-<div class="bg-white rounded-lg shadow-md overflow-hidden">
-  <div class="p-4 sm:p-6 border-b border-gray-200">
-    <h2 class="text-lg sm:text-xl font-bold text-gray-800 flex items-center gap-2">
-      <span class="text-xl sm:text-2xl">📚</span> All Genres
+<div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
+  <div class="p-4 sm:p-6 border-b border-gray-700">
+    <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+      <span class="text-xl sm:text-2xl">🕹️</span> All Game Genre
     </h2>
   </div>
 
-  <!-- Mobile Card View (visible on small screens) -->
+  <!-- Mobile Card View -->
   <div class="block lg:hidden p-4 space-y-4">
     @forelse($genres as $g)
-      <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+      <div class="bg-gray-900 rounded-lg p-4 border border-gray-700">
         <div class="mb-3">
           <div class="flex items-center gap-2 mb-2">
-            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-800 text-white">
               {{ $g->name }}
             </span>
           </div>
           @if($g->description)
-            <p class="text-xs sm:text-sm text-gray-600 line-clamp-2">{{ $g->description }}</p>
+            <p class="text-xs sm:text-sm text-gray-300 line-clamp-2">{{ $g->description }}</p>
           @else
             <p class="text-xs text-gray-400 italic">No description</p>
           @endif
@@ -131,22 +131,22 @@
 
         <div class="space-y-2 mb-4 text-xs sm:text-sm">
           <div>
-            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-800 text-white">
               🎥 {{ $g->movies_count }}
-              <span class="ml-1">{{ $g->movies_count === 1 ? 'movie' : 'movies' }}</span>
+              <span class="ml-1">{{ $g->movies_count === 1 ? 'games' : 'games' }}</span>
             </span>
           </div>
 
-          <div class="text-gray-500 text-xs">
+          <div class="text-gray-300 text-xs">
             {{ $g->created_at ? $g->created_at->format('M d, Y') : 'N/A' }}
           </div>
         </div>
 
-        <div class="flex gap-2 pt-3 border-t border-gray-200">
+        <div class="flex gap-2 pt-3 border-t border-gray-700">
           <button 
             type="button"
             onclick="openEditGenreModal({{ $g->id }}, '{{ addslashes($g->name) }}', '{{ addslashes($g->description ?? '') }}')"
-            class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-colors duration-200"
+            class="flex-1 px-3 py-2 bg-gray-800 hover:bg-gray-900 text-white text-xs font-medium rounded-lg transition-colors duration-200"
           >
             ✏️ Edit
           </button>
@@ -156,7 +156,7 @@
             @method('DELETE')
             <button 
               type="submit" 
-              class="w-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white text-xs font-medium rounded-lg transition-colors duration-200"
+              class="w-full px-3 py-2 bg-red-700 hover:bg-red-800 text-white text-xs font-medium rounded-lg transition-colors duration-200"
             >
               🗑️ Delete
             </button>
@@ -164,9 +164,9 @@
         </div>
       </div>
     @empty
-      <div class="py-8 text-center text-gray-500">
+      <div class="py-8 text-center text-gray-300">
         <div class="flex flex-col items-center justify-center">
-          <span class="text-4xl mb-2">🎭</span>
+          <span class="text-4xl mb-2">🥀</span>
           <p class="text-sm font-medium">No genres found yet</p>
           <p class="text-xs text-gray-400">Create your first genre to get started!</p>
         </div>
@@ -174,32 +174,32 @@
     @endforelse
   </div>
 
-  <!-- Desktop Table View (hidden on small screens) -->
+  <!-- Desktop Table View -->
   <div class="hidden lg:block overflow-x-auto">
     <table class="w-full">
-      <thead class="bg-gray-50 border-b border-gray-200">
+      <thead class="bg-gray-900 border-b border-gray-700">
         <tr>
-          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700">Genre Name</th>
-          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700">Description</th>
-          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700">Movies Count</th>
-          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700">Added On</th>
-          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700">Actions</th>
+          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-white">Genre Name</th>
+          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-white">Description</th>
+          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-white">Games played</th>
+          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-white">Added On</th>
+          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-white">Actions</th>
         </tr>
       </thead>
 
-      <tbody class="divide-y divide-gray-200">
+      <tbody class="divide-y divide-gray-700">
         @forelse($genres as $g)
-        <tr class="hover:bg-gray-50 transition-colors duration-150">
+        <tr class="hover:bg-gray-800 transition-colors duration-150">
 
           <!-- Genre Name -->
-          <td class="px-6 py-4 text-xs sm:text-sm text-gray-900 font-medium">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+          <td class="px-6 py-4 text-xs sm:text-sm text-white font-medium">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-800 text-white">
               {{ $g->name }}
             </span>
           </td>
 
           <!-- Description -->
-          <td class="px-6 py-4 text-xs sm:text-sm text-gray-600">
+          <td class="px-6 py-4 text-xs sm:text-sm text-gray-300">
             @if($g->description)
               <span class="line-clamp-2">{{ $g->description }}</span>
             @else
@@ -209,14 +209,14 @@
 
           <!-- Movies Count -->
           <td class="px-6 py-4 text-xs sm:text-sm">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-800 text-white">
               🎥 {{ $g->movies_count }}
-              <span class="ml-1">{{ $g->movies_count === 1 ? 'movie' : 'movies' }}</span>
+              <span class="ml-1">{{ $g->movies_count === 1 ? 'Games' : 'Games' }}</span>
             </span>
           </td>
 
           <!-- Added On -->
-          <td class="px-6 py-4 text-xs sm:text-sm text-gray-600">
+          <td class="px-6 py-4 text-xs sm:text-sm text-gray-300">
             {{ $g->created_at ? $g->created_at->format('M d, Y h:i A') : 'N/A' }}
           </td>
 
@@ -228,7 +228,7 @@
               <button 
                 type="button"
                 onclick="openEditGenreModal({{ $g->id }}, '{{ addslashes($g->name) }}', '{{ addslashes($g->description ?? '') }}')"
-                class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-colors duration-200 flex items-center gap-1"
+                class="px-3 py-1 bg-gray-800 hover:bg-gray-900 text-white text-xs font-medium rounded-lg transition-colors duration-200 flex items-center gap-1"
               >
                 ✏️ Edit
               </button>
@@ -239,7 +239,7 @@
                 @method('DELETE')
                 <button 
                   type="submit" 
-                  class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white text-xs font-medium rounded-lg transition-colors duration-200 flex items-center gap-1"
+                  class="px-3 py-1 bg-red-700 hover:bg-red-800 text-white text-xs font-medium rounded-lg transition-colors duration-200 flex items-center gap-1"
                 >
                   🗑️ Delete
                 </button>
@@ -251,9 +251,9 @@
         </tr>
         @empty
         <tr>
-          <td colspan="5" class="px-6 py-8 text-center text-gray-500">
+          <td colspan="5" class="px-6 py-8 text-center text-gray-300">
             <div class="flex flex-col items-center justify-center">
-              <span class="text-4xl mb-2">🎭</span>
+              <span class="text-4xl mb-2">🥀</span>
               <p class="font-medium text-sm">No genres found yet</p>
               <p class="text-xs text-gray-400">Create your first genre to get started!</p>
             </div>
@@ -267,9 +267,9 @@
 
 <!-- Edit Genre Modal -->
 <div id="editGenreModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
-  <div class="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto shadow-xl">
+  <div class="bg-gray-900 rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto shadow-xl">
     <!-- Modal Header -->
-    <div class="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 px-4 sm:px-6 py-4 border-b border-gray-200">
+    <div class="sticky top-0 bg-gray-800 px-4 sm:px-6 py-4 border-b border-gray-700">
       <h2 class="text-lg sm:text-xl font-bold text-white">✏️ Edit Genre</h2>
     </div>
 
@@ -279,38 +279,38 @@
       @method('PUT')
       
       <div>
-        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Genre Name</label>
+        <label class="block text-xs sm:text-sm font-medium text-gray-200 mb-2">Genre Name</label>
         <input 
           type="text" 
           name="name" 
           id="editGenreName" 
-          class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-sm"
+          class="w-full px-3 sm:px-4 py-2 border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none transition text-sm bg-gray-800 text-white"
           required
         />
       </div>
 
       <div>
-        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Description</label>
+        <label class="block text-xs sm:text-sm font-medium text-gray-200 mb-2">Description</label>
         <textarea 
           name="description" 
           id="editGenreDescription" 
           rows="4"
-          class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-sm"
+          class="w-full px-3 sm:px-4 py-2 border border-gray-700 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none transition text-sm bg-gray-800 text-white"
         ></textarea>
       </div>
 
       <!-- Modal Footer -->
-      <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-200">
+      <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-700">
         <button 
           type="button" 
           onclick="closeEditGenreModal()" 
-          class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors duration-200 text-sm"
+          class="px-4 py-2 border border-gray-600 text-gray-200 rounded-lg hover:bg-gray-800 font-medium transition-colors duration-200 text-sm"
         >
           Cancel
         </button>
         <button 
           type="submit" 
-          class="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 font-medium transition-all duration-200 text-sm"
+          class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 font-medium transition-all duration-200 text-sm"
         >
           Update Genre
         </button>

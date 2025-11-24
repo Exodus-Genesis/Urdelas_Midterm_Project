@@ -49,7 +49,7 @@ class MovieController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->back()->with('success', 'Movie created successfully!');
+        return redirect()->back()->with('success', 'Game created successfully!');
     }
 
     // Update an existing movie
@@ -81,13 +81,13 @@ class MovieController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->back()->with('success', 'Movie updated successfully!');
+        return redirect()->back()->with('success', 'Game updated successfully!');
     }
 
     // Delete a movie
     public function destroy(Movie $movie)
     {
         $movie->delete();
-        return redirect()->back()->with('success', 'Movie deleted successfully!');
+        return redirect()->back()->with('success', 'Game deleted successfully!');
     }
 }

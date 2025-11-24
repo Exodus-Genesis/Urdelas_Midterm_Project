@@ -53,7 +53,7 @@ class GenreController extends Controller
 
         $genre->update($request->only(['name', 'description']));
 
-        return redirect()->back()->with('success', 'Genre updated successfully!');
+        return redirect()->back()->with('success', 'Game Genre updated successfully!');
     }
 
     // Delete a genre and detach it from movies
@@ -64,6 +64,6 @@ class GenreController extends Controller
 
         $genre->delete();
 
-        return redirect()->back()->with('success', 'Genre deleted successfully!');
+        return redirect()->back()->with('success', 'Game Genre deleted successfully!');
     }
 }
