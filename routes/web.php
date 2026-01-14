@@ -22,3 +22,13 @@ Route::post('/logout', function () {
 Route::get('/', [MovieController::class, 'index'])->name('dashboard');
 Route::resource('movies', MovieController::class)->except(['show', 'create', 'edit']);
 Route::resource('genres', GenreController::class)->except(['show', 'create', 'edit']);
+Route::patch('/movies/{id}/restore', [MovieController::class, 'restore'])
+    ->name('movies.restore');
+
+Route::delete('/movies/{id}/force-delete', [MovieController::class, 'forceDelete'])
+    ->name('movies.forceDelete');
+
+Route::get('/movies/trash', [MovieController::class, 'trash'])
+    ->name('movies.trash');
+
+Route::get('/movies/export', [MovieController::class, 'export'])->name('movies.export');

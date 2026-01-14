@@ -65,7 +65,28 @@
   <h2 class="text-lg sm:text-xl font-bold text-gray-100 mb-6 flex items-center gap-2">
     <span class="text-xl sm:text-2xl">⛶</span> Add New Games
   </h2>
-  <form method="POST" action="{{ route('movies.store') }}" class="space-y-4">
+
+  <form method="GET" action="{{ route('movies.export') }}" class="inline">
+    <input type="hidden" name="search" value="{{ request('search') }}">
+    <input type="hidden" name="genre_filter" value="{{ request('genre_filter') }}">
+
+    <button
+        type="submit"
+        class="flex items-center gap-2 rounded-lg bg-blue-900 px-4 py-2 text-sm font-medium text-white
+               transition-colors hover:bg-blue-800"
+    >
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 16v-8m0 0l-3 3m3-3l3 3M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+        </svg>
+        Export to PDF
+    </button>
+</form>
+
+
+
+
+  <form method="POST" enctype="multipart/form-data" action="{{ route('movies.store') }}" class="space-y-4">
     @csrf
     
     <!-- First Row -->
@@ -85,7 +106,7 @@
         <input 
           name="director" 
           value="{{ old('director') }}" 
-          placeholder="director name"
+          placeholder="Developer name"
           class="w-full px-3 sm:px-4 py-2 border border-gray-600 bg-gray-700 text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-sm"
           required
         />
@@ -141,6 +162,37 @@
       >{{ old('description') }}</textarea>
     </div>
 
+  <!-- Photo Upload -->
+<div class="md:col-span-2">
+    <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        Game Photo (Optional)
+    </label>
+
+    <input
+        type="file"
+        name="photo"
+        accept="image/jpeg,image/png,image/jpg"
+        class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
+               file:mr-4 file:rounded-md file:border-0
+               file:bg-blue-50 file:px-4 file:py-2
+               file:text-sm file:font-medium file:text-blue-700
+               hover:file:bg-blue-100
+               dark:bg-neutral-800 dark:text-neutral-100 dark:file:bg-blue-900/20
+               dark:file:text-blue-300"
+    >
+
+    <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+        JPG, PNG or JPEG. Max 2MB.
+    </p>
+
+    @error('photo')
+        <p class="mt-1 text-xs text-red-600 dark:text-red-400">
+            {{ $message }}
+        </p>
+    @enderror
+</div>
+
+
     <!-- Submit Button -->
     <div class="flex justify-end pt-4">
       <button 
@@ -151,6 +203,77 @@
       </button>
     </div>
   </form>
+</div>
+
+<!-- Search & Filter Section -->
+<div class="rounded-xl border mb-10 border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-800">
+    <h2 class="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Search & Filter Games 
+    </h2>
+
+    <form action="{{ route('dashboard') }}" method="GET" class="grid gap-4 md:grid-cols-3">
+
+        <!-- Search Input -->
+        <div class="md:col-span-1">
+            <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                Search
+            </label>
+            <input
+                type="text"
+                name="search"
+                value="{{ request('search') }}"
+                placeholder="Search by Game or Developer"
+                class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
+                       focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20
+                       dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100"
+            >
+        </div>
+
+        <!-- genre Filter Dropdown -->
+        <div class="md:col-span-1">
+            <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                Filter by Genre
+            </label>
+            <select
+                name="genre_filter"
+                class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
+                       focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20
+                       dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100"
+            >
+                <option value="">All genres</option>
+
+                @foreach ($genres as $genre)
+                    <option
+                        value="{{ $genre->id }}"
+                        {{ request('genre_filter') == $genre->id ? 'selected' : '' }}
+                    >
+                        {{ $genre->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex items-end gap-2">
+            <button
+                type="submit"
+                class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white
+                       hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+            >
+                Apply
+            </button>
+
+            <a
+                href="{{ route('dashboard') }}"
+                class="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium
+                       text-neutral-700 hover:bg-neutral-100 dark:border-neutral-600
+                       dark:text-neutral-200 dark:hover:bg-neutral-700"
+            >
+                Reset
+            </a>
+        </div>
+
+    </form>
 </div>
 
 <!-- Movies Table -->
@@ -165,9 +288,20 @@
   <div class="block lg:hidden p-4 space-y-4">
     @forelse($movies as $m)
       <div class="bg-gray-700 rounded-lg p-4 border border-gray-600">
-        <div class="mb-3">
-          <h3 class="text-sm font-bold text-gray-100">{{ $m->title }}</h3>
-          <p class="text-xs text-gray-400 mt-1">{{ $m->director }} • {{ $m->release_year }}</p>
+        <div class="mb-3 flex items-center gap-2">
+          <!-- Mobile Photo -->
+          @if($m->photo)
+            <img src="{{ Storage::url($m->photo) }}" alt="{{ $m->title }}" class="h-12 w-12 rounded-full object-cover">
+          @else
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                {{ Str::upper(substr($m->title, 0, 2)) }}
+            </div>
+          @endif
+
+          <div>
+            <h3 class="text-sm font-bold text-gray-100">{{ $m->title }}</h3>
+            <p class="text-xs text-gray-400 mt-1">{{ $m->director }} • {{ $m->release_year }}</p>
+          </div>
         </div>
 
         <div class="space-y-2 mb-4 text-xs">
@@ -227,6 +361,7 @@
     <table class="w-full">
       <thead class="bg-gray-900 border-b border-gray-700">
         <tr>
+          <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-400">Photo</th>
           <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-400">Title</th>
           <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-400">Genre</th>
           <th class="px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-400">Developer</th>
@@ -241,7 +376,22 @@
       <tbody class="divide-y divide-gray-700">
         @forelse($movies as $m)
         <tr class="hover:bg-gray-700 transition-colors duration-150">
-          
+
+          <!-- Photo -->
+          <td class="px-6 py-4">
+            @if($m->photo)
+                <img
+                    src="{{ Storage::url($m->photo) }}"
+                    alt="{{ $m->title }}"
+                    class="h-12 w-12 rounded-full object-cover ring-2 ring-blue-100 dark:ring-blue-900"
+                >
+            @else
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                    {{ Str::upper(substr($m->title, 0, 2)) }}
+                </div>
+            @endif
+          </td>
+
           <!-- Title -->
           <td class="px-6 py-4 text-xs sm:text-sm text-gray-100 font-medium">{{ $m->title }}</td>
 
@@ -338,7 +488,7 @@
             <h2 class="text-lg sm:text-xl font-bold text-white">✏️ Edit Game</h2>
         </div>
 
-        <form id="editForm" method="POST" class="p-4 sm:p-6 space-y-4">
+        <form id="editForm" method="POST" enctype="multipart/form-data" class="p-4 sm:p-6 space-y-4">
             @csrf
             @method('PUT')
             
@@ -408,6 +558,34 @@
                 ></textarea>
             </div>
 
+            <!-- Photo Upload in Edit Modal -->
+            <div class="md:col-span-2">
+                <label class="mb-2 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                    Games Photo
+                </label>
+
+                <!-- Current Photo Preview -->
+                <div id="currentPhotoPreview" class="mb-3"></div>
+
+                <input
+                    type="file"
+                    id="edit_photo"
+                    name="photo"
+                    accept="image/jpeg,image/png,image/jpg"
+                    class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm
+                           file:mr-4 file:rounded-md file:border-0
+                           file:bg-blue-50 file:px-4 file:py-2
+                           file:text-sm file:font-medium file:text-blue-700
+                           hover:file:bg-blue-100
+                           dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100
+                           dark:file:bg-blue-900/20 dark:file:text-blue-400"
+                >
+
+                <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                    Leave empty to keep current photo. JPG, PNG or JPEG. Max 2MB.
+                </p>
+            </div>
+
             <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-700">
                 <button 
                   type="button" 
@@ -428,7 +606,7 @@
 </div>
 
 <script>
-function openEditModal(id, title, genre_id, rating, director, release_year, description) {
+function openEditModal(id, title, genre_id, rating, director, release_year, description, photo) {
     document.getElementById('editModal').classList.remove('hidden');
     document.getElementById('editTitle').value = decodeURIComponent(title);
     document.getElementById('editGenre').value = genre_id;
@@ -436,6 +614,20 @@ function openEditModal(id, title, genre_id, rating, director, release_year, desc
     document.getElementById('editDirector').value = decodeURIComponent(director);
     document.getElementById('editYear').value = release_year;
     document.getElementById('editDescription').value = decodeURIComponent(description);
+
+     
+
+    // Current Photo Preview
+    const preview = document.getElementById('currentPhotoPreview');
+    preview.innerHTML = '';
+    const movie = @json($movies->keyBy('id'));
+    if(movie[id].photo){
+        const img = document.createElement('img');
+        img.src = '{{ url('') }}/storage/' + movie[id].photo;
+        img.alt = movie[id].title;
+        img.className = 'h-20 w-20 rounded-lg object-cover';
+        preview.appendChild(img);
+    }
 
     document.getElementById('editForm').action = `/movies/${id}`;
 }

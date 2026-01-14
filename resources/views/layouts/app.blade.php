@@ -38,18 +38,26 @@
       </div>
 
       <!-- Navigation Menu -->
-      <nav class="p-4 space-y-2">
-        <a href="{{ route('dashboard') }}" 
-           class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200">
-          <span class="text-xl">🖥️</span>
-          <span>Games</span>
-        </a>
-        <a href="{{ route('genres.index') }}" 
-           class="nav-link {{ request()->routeIs('genres.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200">
-          <span class="text-xl">🕹️</span>
-          <span>Game Genres</span>
-        </a>
-      </nav>
+<nav class="p-4 space-y-2">
+  <a href="{{ route('dashboard') }}" 
+     class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200">
+    <span class="text-xl">🖥️</span>
+    <span>Games</span>
+  </a>
+
+  <a href="{{ route('genres.index') }}" 
+     class="nav-link {{ request()->routeIs('genres.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200">
+    <span class="text-xl">🕹️</span>
+    <span>Game Genres</span>
+  </a>
+
+  <a href="{{ route('movies.trash') }}" 
+     class="nav-link {{ request()->routeIs('movies.trash') ? 'active' : '' }} flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200">
+    <span class="text-xl">🗑️</span>
+    <span>Trash</span>
+  </a>
+</nav>
+
 
       <!-- Bottom Section (Profile + Logout) -->
       <div class="absolute bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700">
@@ -60,7 +68,7 @@
               JO
             </div>  
             <div class="flex flex-col leading-tight">
-              <span class="text-sm opacity-80">Salutations!</span>
+              <span class="text-sm opacity-80">Sup gang!</span>
               <span class="text-base font-semibold">Joshua Urdelas</span>
             </div>
           </div>
@@ -148,6 +156,8 @@
     navLinks.forEach(link => {
       link.addEventListener('click', closeMenu);
     });
+
+   
   </script>
 </body>
 </html>

@@ -15,6 +15,7 @@ class CreateMoviesTable extends Migration
             $table->unsignedBigInteger('genre_id')->nullable();
             $table->decimal('rating', 3, 1)->nullable();
             $table->text('description')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
 
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('set null');
